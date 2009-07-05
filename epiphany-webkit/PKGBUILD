@@ -1,0 +1,43 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Jens Maucher <defcon@archlinux.us>
+# Contributor: Tim Yang <tdy@gmx.com>
+# Contributor: graigue <gregori.couzard@gmail.com>
+
+pkgname=epiphany-webkit
+pkgver=2.27.3
+pkgrel=1
+pkgdesc="A GNOME2 web browser using the experimental webkit rendering engine"
+arch=('i686' 'x86_64')
+url="http://www.gnome.org/projects/epiphany/"
+license=('GPL')
+depends=('desktop-file-utils' 'enchant>=1.4.2' 'gnome-desktop>=2.24.2' 'avahi'
+         'iso-codes>=2.0' 'libcanberra' 'libnotify>=0.4.5' 'libwebkit>=1.1.3')
+makedepends=('gnome-doc-utils>=0.14.0' 'gnome-python>=2.22.3' 'intltool' 'networkmanager' 'pkgconfig')
+options=('!libtool')
+provides=(epiphany=$pkgver)
+conflicts=('epiphany')
+install=$pkgname.install
+source=(http://ftp.gnome.org/pub/GNOME/sources/epiphany/2.27/epiphany-$pkgver.tar.bz2)
+md5sums=('83d1785c8e15d77ae088a7d9eed6a705')
+
+build() {
+    cd $srcdir/epiphany-$pkgver
+
+    # Configure, build and install
+    ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+        --disable-scrollkeeper \
+        --enable-python \
+        --enable-certificate-manager \
+        --enable-dbus \
+        --enable-network-manager \
+        --enable-spell-checker \
+        --with-engine=webkit || return 1
+    make || return 1
+    make GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR=$pkgdir install || return 1
+    
+    # Merge gconf schemas in a single file
+    install -d $pkgdir/usr/share/gconf/schemas
+    gconf-merge-schema $pkgdir/usr/share/gconf/schemas/epiphany.schemas \
+        $pkgdir/etc/gconf/schemas/*.schemas
+    rm -rf $pkgdir/etc
+}

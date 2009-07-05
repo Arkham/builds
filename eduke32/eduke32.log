@@ -1,0 +1,49 @@
+EDuke32 1.5.0devel 20090313
+addsearchpath(): Added /home/arkham/builds/eduke32/
+addsearchpath(): Added /home/arkham/.eduke32/
+Initializing SDL system interface (compiled against SDL version 1.2.13, found version 1.2.13)
+Loading libGL.so.1
+Loading libGLU.so.1
+Using "x11" video driver
+Using config file 'eduke32.cfg'.
+Scanning for GRP files...
+Using group file 'duke3d.grp' as main group file.
+Compiling: GAME.CON (99639 bytes)
+Including: DEFS.CON (28893 bytes)
+Including: USER.CON (36930 bytes)
+GAME.CON: In state `blimphitstate':
+GAME.CON:157: warning: expected action, found define.
+GAME.CON: In actor `ORGANTIC':
+GAME.CON:1923: warning: found `else' with no `if'.
+GAME.CON: In state `pigshootenemystate':
+GAME.CON:2817: warning: found `else' with no `if'.
+Found 3 warning(s), 0 error(s).
+Resizing code buffer to 11989*4 bytes
+Script compiled in 71ms
+Compiled code size: 11981*4 bytes, version 1.3D
+Pointer bitmap size: 1499 bytes
+1547/11264 labels, 308/2048 variables
+122/16384 quotes, 0 quote redefinitions
+0/88 event definitions, 119 defined actors
+Initialized 32,0M cache
+RTS file DUKE.RTS was not found
+Initializing OSD...
+0 joystick(s) found
+Setting video mode 1024x768 (32-bpp fullscreen)
+OpenGL Information:
+ Version:  2.1.2 NVIDIA 173.14.18
+ Vendor:   NVIDIA Corporation
+ Renderer: GeForce FX Go5700/AGP/SSE2/3DNOW!
+Cache contains 0 bytes of garbage data
+Initializing music...
+Initializing sound...
+Initializing MultiVoc... 
+  - 32 voices, 512 byte mixing buffers
+Executing "eduke32_binds.cfg"
+EOF: EDuke32
+Cache time: 968ms
+UDP networking uninitialized successfully.
+ 
+Uninitializing MultiVoc...
+Wrote eduke32.cfg
+Wrote eduke32_binds.cfg

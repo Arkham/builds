@@ -1,0 +1,57 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Muhammad 'MJ' Jassim <UnbreakableMJ@gmail.com>
+# Contributor: Dany Martineau <dany.luc.martineau gmail com>
+
+pkgname=songbird-bin
+pkgver=1.2.0
+_pkgver=1146
+pkgrel=3
+pkgdesc="Digital desktop media player (jukebox) mashed-up with web browser, powered by Mozilla (official binary version)."
+url="http://www.songbirdnest.com/"
+license=('GPL2')
+arch=('i686' 'x86_64')
+install=songbird.install
+depends=('libxmu' 'gstreamer0.10-base' 'gstreamer0.10-good-plugins' 'gstreamer0.10-python-songbird')
+#  Much is included internally, so we can ignore most namcap errors about dependencies
+optdepends=('gstreamer0.10-bad-plugins' 'gstreamer0.10-ugly-plugins')
+conflicts=('songbird' 'songbird-nightly' 'songbird-svn')
+provides=('songbird')
+source=(http://download.songbirdnest.com/installer/linux/$CARCH/Songbird_$pkgver-${_pkgver}_linux-$CARCH.tar.gz 
+        songbird.desktop 
+        songbird-launcher.sh 
+        $pkgname-$pkgver-symlink.patch)
+md5sums=('1af7bfc7a8893b445495bae838a03098')
+[ "$CARCH" == "x86_64" ] && md5sums=('77e47a7f2e3de872fab2748604a9d0ac')
+md5sums=(${md5sums[*]} 
+         'e8e6327f94596e02b474d06109943a70'
+         'afc2ad4ad4954e98af3703a1a07cd574'
+         'c75457bfc67dc8624fab8201eb22a909')
+
+build() {
+    cd $srcdir
+
+    # Apply the symlink patch
+    patch -Np0 -i $pkgname-$pkgver-symlink.patch || return 1
+
+    # Create directory and copy everything
+    install -d $pkgdir/opt/songbird
+    cp -a $srcdir/Songbird/* $pkgdir/opt/songbird || return 1
+
+    # Create some chrome.manifest
+    touch $pkgdir/opt/songbird/extensions/albumart@songbirdnest.com/chrome.manifest
+    touch $pkgdir/opt/songbird/extensions/gonzo@songbirdnest.com/chrome.manifest
+    touch $pkgdir/opt/songbird/extensions/rubberducky-dependencies\@songbirdnest.com/chrome.manifest
+
+    # Fix permissions
+    find $pkgdir/opt/songbird -type d -exec chmod 755 {} +
+    find $pkgdir/opt/songbird -type f -exec chmod 644 {} +
+    chmod 755 $pkgdir/opt/songbird/songbird{,-bin}
+    chmod 755 $pkgdir/opt/songbird/xulrunner/xulrunner{,-bin}
+
+    # Install bin, icon and desktop
+    install -Dm 755 $srcdir/songbird-launcher.sh $pkgdir/usr/bin/songbird
+    install -Dm 644 $srcdir/Songbird/chrome/icons/default/default.xpm \
+        $pkgdir/usr/share/pixmaps/Songbird.xpm
+    install -Dm 644 $srcdir/songbird.desktop \
+        $pkgdir/usr/share/applications/Songbird.desktop
+}

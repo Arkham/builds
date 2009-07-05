@@ -1,0 +1,6 @@
+post_install() {
+	cat <<- EOF
+		:: You need the Quake 1 data to play
+		:: Copy your 'id1' directory to '/usr/share/quake/'
+	EOF
+}

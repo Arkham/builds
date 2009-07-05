@@ -1,0 +1,44 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Christoph Zeiler <rabyte*gmail>
+
+pkgname=widelands
+pkgver=13
+pkgrel=3
+pkgdesc="A realtime strategy game with emphasis on economy and transport"
+arch=('i686' 'x86_64')
+url="http://widelands.org/"
+license=('GPL')
+depends=('sdl_mixer>=1.2.6' 'sdl_image' 'sdl_net' 'sdl_ttf>=2' 'sdl_gfx' 'gcc-libs')
+makedepends=('scons>=0.97' 'boost')
+source=(http://downloads.sourceforge.net/$pkgname/Widelands-Build$pkgver-src.tar.bz2
+        $pkgname.desktop
+        $pkgname.sh)
+md5sums=('5e39f80b668d303abf693c48afa0c4bc'
+         '15820bf099fd6f16251fe70a75c534bb'
+         '7cae50aba5ed0cd2cfeea79124637b46')
+
+build() {
+    cd $srcdir/$pkgname-b$pkgver
+
+    # Compile
+    scons prefix=/usr install_prefix=$pkgdir/usr bindir=bin \
+        datadir=share/$pkgname localedir=/usr/share/$pkgname/locale \
+        extra_compile_flags="${CXXFLAGS}" \
+        build=release \
+        prefer_localdata=False \
+        || return 1
+
+    # Copy data and fix permissions
+    install -d $pkgdir/usr/share/$pkgname
+    cp -rf campaigns/ fonts/ locale/ maps/ music/ pics/ sound/ tribes/ txts/ worlds/ \
+        $pkgdir/usr/share/$pkgname/
+
+    find $pkgdir/usr/share -type f -exec chmod 644 {} +
+    install -m 755 $pkgname $pkgdir/usr/share/$pkgname/$pkgname
+
+    # Install bin, icon and desktop file
+    install -Dm 755 $srcdir/$pkgname.sh $pkgdir/usr/bin/$pkgname
+    install -Dm 644 pics/wl-ico-128.png $pkgdir/usr/share/pixmaps/$pkgname.png
+    install -Dm 644 $srcdir/$pkgname.desktop \
+        $pkgdir/usr/share/applications/$pkgname.desktop
+}

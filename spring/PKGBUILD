@@ -1,0 +1,30 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
+
+pkgname=spring
+pkgver=0.79.1.2
+pkgrel=1
+pkgdesc='A free 3D real-time-strategy (RTS) game engine for "Total Annihilation"'
+arch=('i686' 'x86_64')
+url="http://springrts.com/"
+license=('GPL')
+depends=('openal' 'glew' 'boost' 'devil' 'libvorbis')
+makedepends=('make' 'cmake>=2.6' 'zip' 'tar' 'lzma-utils')
+source=(http://spring.clan-sy.com/dl/${pkgname}_${pkgver}_src.tar.lzma)
+md5sums=('fe22719f1df985051584767b19261dbc')
+
+build() {
+    bsdtar -xf ${pkgname}_${pkgver}_src.tar.lzma || return 1
+
+    cd spring_$pkgver
+
+    cmake	. \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DDATADIR=share/spring
+
+    make || return 1
+    make DESTDIR=$pkgdir install || return 1
+
+    install -d $pkgdir/etc/spring
+    echo '$HOME/.spring' > $pkgdir/etc/spring/datadir
+}

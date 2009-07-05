@@ -1,0 +1,29 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Arkham <arkham at archlinux dot us>
+
+pkgname=swfmill
+pkgver=0.2.12
+pkgrel=2
+pkgdesc="xml2swf and swf2xml processor with import functionalities"
+arch=('i686' 'x86_64')
+url="http://swfmill.org"
+license=('GPL')
+depends=('libxslt' 'freetype2' 'libpng')
+options=(!libtool)
+source=(http://swfmill.org/releases/$pkgname-$pkgver.tar.gz
+        $pkgname-$pkgver.patch)
+md5sums=('88a634cad4d8d025c84c6e8916a8b1c4'
+         '7351ec114d0fa0b97dd533f910c55856')
+
+build() {
+    cd $srcdir/$pkgname-$pkgver
+
+    # Patch some gcc problems
+    patch -Np0 -i ../$pkgname-$pkgver.patch || return 1
+    sed -i -e 's/#include <string>/#include <string>\n#include <cstring>/' src/swft/swft.h
+
+    # Configure, make and install
+    ./configure --prefix=/usr
+    make || return 1
+    make DESTDIR=$pkgdir install || return 1
+}

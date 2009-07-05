@@ -1,0 +1,18 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Arkham <arkham at archlinux dot us>
+
+pkgname=aurcheck
+pkgver=0.3
+pkgrel=1
+pkgdesc="A tool that allows to easily check updates from AUR"
+arch=('any')
+url="http://bbs.archlinux.org/viewtopic.php?pid=579778"
+license=('GPL')
+source=($pkgname)
+md5sums=('48c17ae664ce7d8c6a5d8d681e1363aa')
+
+build() {
+    cd $srcdir/
+
+    install -Dm 755 $pkgname $pkgdir/usr/bin/$pkgname
+}

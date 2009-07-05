@@ -1,0 +1,24 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
+
+pkgname=opencity
+pkgver=0.0.6.1
+pkgrel=3
+pkgdesc="A full 3D city simulator game project"
+arch=('i686' 'x86_64')
+url="http://opencity.info/"
+license=('GPL')
+depends=('mesa' 'sdl_image' 'sdl_net' 'sdl_mixer')
+source=(http://downloads.sourceforge.net/$pkgname/$pkgname-${pkgver}stable.tar.bz2)
+md5sums=('929fbe1c305dc0344c9915d8eb6c4dbc')
+
+build() {
+  cd $srcdir/$pkgname-0.0.6stable
+
+  sed '1i#include <cstdio>' -i src/model/ac3d{material,object,surface}.cpp
+
+  ./configure --prefix=/usr --sysconfdir=/etc
+
+  make || return 1
+  make DESTDIR=$pkgdir install || return 1
+}

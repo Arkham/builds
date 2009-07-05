@@ -1,0 +1,39 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
+
+pkgname=eduke32
+pkgver=20090313
+pkgrel=1
+pkgdesc='An advanced port of the classic FPS "Duke Nukem 3D" by 3D Realms'
+arch=('i686' 'x86_64')
+url="http://eduke32.com/"
+license=('GPL' 'custom')
+depends=('sdl_mixer' 'gtk2')
+optdepends=('eduke32-hrp' 'eduke32-dukeplus')
+makedepends=('nasm')
+source=(http://wiki.eduke32.com/stuff/source_code/${pkgname}_src_20090131.zip
+        http://wiki.eduke32.com/stuff/source_code/${pkgname}_src_$pkgver.diff
+        $pkgname.png
+        $pkgname.desktop)
+md5sums=('cf5eb51de024f28e8b24aae2702d459e'
+         'fd9fa13146c9a31b2eb709aff93a4afa'
+         'bc189b860c8562e10f01e0faed909089'
+         'a7273a79d30de8f3ee2e1df2441ed856')
+
+build() {
+    cd $srcdir/${pkgname}_src_20090131
+
+    # Adding some patches
+    patch -Np1 -i $srcdir/${pkgname}_src_$pkgver.diff || return 1
+    sed	-i 's|games/jfduke3d|duke3d|g;s|games/eduke32|eduke32|g;s|local/||g' source/{astub,game}.c
+
+    # Compile
+    make debug="${CXXFLAGS}" LINKED_GTK=1 || return 1
+
+    # Install bin, license, icon and desktop files
+    install -d $pkgdir/usr/bin
+    install -m 755 {eduke,mapster}32 $pkgdir/usr/bin/
+    install -Dm 644 buildlic.txt $pkgdir/usr/share/licenses/$pkgname/buildlic.txt
+    install -Dm 644 $srcdir/$pkgname.png $pkgdir/usr/share/pixmaps/$pkgname.png
+    install -Dm 644 $srcdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+}

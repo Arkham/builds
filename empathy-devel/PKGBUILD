@@ -1,0 +1,46 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Bjorn Lindeijer <bjorn lindeijer nl>
+# Contributor: arjan <arjan@archlinux.org>
+# Contributor: Brice Carpentier <brice@dlfp.org>
+# Contributor: Andreas Zwinkau <beza1e1@web.de>
+# Contributor: M Rawash <mrawash@gmail.com>
+# Contributor: defcon <defcon@archlinux.us>
+# Contributor: Blue Peppers <bluepeppers@archlinux.us>
+
+pkgname=empathy-devel
+_pkgname=empathy
+pkgver=2.27.3
+pkgrel=1
+pkgdesc="A GNOME instant messaging client using the Telepathy framework."
+arch=('i686' 'x86_64')
+url="http://live.gnome.org/Empathy"
+license=('GPL2')
+depends=('libwebkit' 'gnome-panel' 'telepathy-mission-control>=4.61' 'telepathy-farsight'
+         'libcanberra' 'libnotify')
+makedepends=('pkgconfig' 'intltool' 'gnome-doc-utils>=0.12.0')
+optdepends=('telepathy-gabble: XMPP/Jabber support'
+            'telepathy-butterfly: MSN support'
+            'telepathy-idle: IRC support'
+            'telepathy-salut: Link-local XMPP support'
+            'telepathy-sofiasip: SIP support'
+            'telepathy-haze: libpurple support')
+options=('!libtool')
+conflicts=('empathy')
+replaces=('empathy')
+install=empathy.install
+source=(http://ftp.gnome.org/pub/GNOME/sources/$_pkgname/2.27/$_pkgname-$pkgver.tar.gz)
+md5sums=('9552e8bf411bd84f6ab4b2a997888eb2')
+
+build() {
+    # Build and install
+    cd $srcdir/$_pkgname-$pkgver
+    ./configure --prefix=/usr --sysconfdir=/etc --libexecdir=/usr/lib/empathy --enable-shave
+    make || return 1
+    make GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR=$pkgdir install || return 1 
+
+    # Merge schemas file in a single file and remove trash
+    install -d $pkgdir/usr/share/gconf/schemas
+    gconf-merge-schema $pkgdir/usr/share/gconf/schemas/$pkgname.schemas \
+        $pkgdir/etc/gconf/schemas/*.schemas
+    rm -rf $pkgdir/etc/gconf
+}

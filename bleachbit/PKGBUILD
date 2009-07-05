@@ -1,0 +1,32 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
+
+pkgname=bleachbit
+pkgver=0.5.3
+pkgrel=1
+pkgdesc="Deletes unneeded files to free disk space and maintain privacy"
+arch=('any')
+url="http://bleachbit.sourceforge.net/"
+license=('GPL3')
+depends=('pygtk>=2' 'gksu')
+install=$pkgname.install
+source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2  
+        $pkgname-admin.sh
+        $pkgname-admin.png
+        $pkgname-admin.desktop)
+md5sums=('df515ce4970173f5e6ad87c17deb4dc8'
+         'a424bec443cc519391c837948fa98fdd'
+         'ddd834baa40d481a603333638e735825'
+         'fc13f064e8970af4418486469dce05d0')
+
+build() {
+    cd $srcdir/$pkgname-$pkgver
+
+    # Compile
+    make prefix=/usr DESTDIR=$pkgdir install || return 1
+
+    # Install bin, icon and desktop file
+    install -Dm 755 $srcdir/$pkgname-admin.sh $pkgdir/usr/bin/$pkgname-admin
+    install -Dm 644 $srcdir/$pkgname-admin.png $pkgdir/usr/share/pixmaps/$pkgname-admin.png
+    install -Dm 644 $srcdir/$pkgname-admin.desktop $pkgdir/usr/share/applications/$pkgname-admin.desktop
+}

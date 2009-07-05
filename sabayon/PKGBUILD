@@ -1,0 +1,27 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Mark Rosenstand <mark at borkware dot net>
+
+pkgname=sabayon
+pkgver=2.25.0
+pkgrel=2
+pkgdesc="System administration tool to manage GNOME desktop settings."
+arch=('i686' 'x86_64')
+url="http://www.gnome.org/projects/sabayon/"
+license=('GPL')
+depends=('libxml2' 'gnome-python' 'python-ldap' 'pyxdg')
+makedepends=('intltool')
+options=('!libtool')
+install=sabayon.install
+source=(http://ftp.gnome.org/pub/GNOME/sources/sabayon/2.25/$pkgname-$pkgver.tar.gz)
+md5sums=('352a637e90d0d4d05cc56c5f87de2801')
+
+build() {
+    cd $srcdir/$pkgname-$pkgver
+    ./configure --prefix=/usr --sysconfdir=/etc  --localstatedir=/var/lib/sabayon \
+        --mandir=/usr/share/man --with-distro=slackware 
+
+    sed -i 's/Exec=/Exec=gksu/' admin-tool/sabayon.desktop
+        
+    make || return 1
+    make GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR=$pkgdir install || return 1
+}

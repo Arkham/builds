@@ -1,0 +1,33 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
+
+pkgname=freerapid
+pkgver=0.82
+pkgrel=1
+pkgdesc="A Java-based download manager for Rapidshare and other file sharing archives"
+arch=('any')
+url="http://wordrider.net/freerapid/"
+license=('GPL')
+depends=('jre')
+provides=('frd')
+source=(http://freerapid-downloader.sweb.cz/FreeRapiD-$pkgver.zip
+        $pkgname.sh
+        $pkgname.desktop)
+md5sums=('30dc88fa34292e2a668b02758f774b48'
+         'f3af9e8ae81bf4c114b2475026fc0a0c'
+         '815a8b560580698d39361487d9710edb')
+
+build() {
+    cd $srcdir/FreeRapid-$pkgver
+
+    # Copy data and fix permissions
+    install -d $pkgdir/usr/share/$pkgname
+    cp -rf frd.jar lib/ lookandfeel/ plugins/ $pkgdir/usr/share/$pkgname/
+    find $pkgdir/usr/share/$pkgname -type f -exec chmod 644 {} +
+
+    # Install bin, icon and desktop file
+    install -Dm 755 $srcdir/$pkgname.sh $pkgdir/usr/bin/$pkgname
+    ln -sf $pkgname $pkgdir/usr/bin/frd
+    install -Dm 644 frd.png $pkgdir/usr/share/pixmaps/$pkgname.png
+    install -Dm 644 $srcdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+}

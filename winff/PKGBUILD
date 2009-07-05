@@ -1,0 +1,27 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: yugrotavele,libervisco <yugrotavele@gmail.com>
+# Contributor: Tri Nguyen <tri170391@gmail.com>
+
+pkgname=winff
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="GUI for ffmpeg"
+url="http://www.winff.org"
+license=('GPL')
+arch=('i686' 'x86_64')
+depends=('ffmpeg' 'gtk2')
+_arch=i386
+[ "$CARCH" = "x86_64" ] && _arch=amd64
+source=(http://ppa.launchpad.net/paul-climbing/ppa/ubuntu/pool/main/w/$pkgname/${pkgname}_$pkgver-1ubuntu0~ppa2j_${_arch}.deb)
+md5sums=('d08ee5cf397607e9accecfa8c589456d')
+[ "$CARCH" = "x86_64" ] && md5sums=('91c8657e92a418890a04647127eab95a')
+
+build() {
+    ar vx  ${pkgname}_$pkgver-1ubuntu0~ppa2j_${_arch}.deb
+    tar xvzf data.tar.gz
+    install -Dm 755 $srcdir/usr/bin/winff $pkgdir/usr/bin/winff
+    install -Dm 755 $srcdir/usr/share/winff/presets.xml $pkgdir/usr/share/winff/presets.xml
+
+    install -Dm 755 $srcdir/usr/share/icons/hicolor/32x32/apps/winff.xpm \
+        $pkgdir/usr/share/icons/hicolor/32x32/apps/winff.xpm
+}
