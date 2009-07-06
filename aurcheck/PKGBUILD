@@ -9,7 +9,7 @@ arch=('any')
 url="http://bbs.archlinux.org/viewtopic.php?pid=579778"
 license=('GPL')
 source=($pkgname)
-md5sums=('48c17ae664ce7d8c6a5d8d681e1363aa')
+md5sums=('12006f9cbcb18942a9e93904c2f6fde9')
 
 build() {
     cd $srcdir/
