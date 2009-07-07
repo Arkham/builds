@@ -1,11 +1,12 @@
 src/
 pkg/
+*.bin
 *.deb
 *.gz
+*.lzma
 *.rpm
 *.run
+*.tar.bz2
+*.tar.gz
 *.tgz
 *.zip
-*.lzma
-*.tar.gz
-*.tar.bz2
