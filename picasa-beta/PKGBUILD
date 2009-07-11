@@ -5,7 +5,7 @@
 
 pkgname=picasa-beta
 pkgver=3.0_5744.02
-pkgrel=2
+pkgrel=3
 pkgdesc="A software that helps you instantly find, edit and share all the pictures on your PC"
 arch=('i686' 'x86_64')
 url="http://picasa.google.com"
@@ -29,14 +29,14 @@ md5sums=('5990be842062ca483239c9f1efca9614'
 
 build() {
     local picasadir=opt/google/picasa/3.0
-    
+
     # Extract the rpm
     install -d $srcdir/picasa && cd $srcdir/picasa
     rpmextract.sh $srcdir/picasa-3.0-current.i386.rpm || return 1
-    
+
     # Patch the executable to work with x86_64
     patch -p1 < $srcdir/picasa.patch || return 1
-    
+
     install -d $pkgdir/{$picasadir,usr/bin}
 
     # Copy needed wine files
@@ -45,12 +45,12 @@ build() {
     # Install some needed executables in $picasadir/bin
     for file in picasa picasasplash setpicasascreensaver \
         showpicasascreensaver common.sh killpicasa showpicasascreensaver \
-        wrapper
+        wrapper fontinstall.sh picasafontcfg
     do
         install -Dm 755 $srcdir/picasa/$picasadir/bin/$file \
             $pkgdir/$picasadir/bin/$file
     done
-    
+
     ln -s /$picasadir/bin/picasa $pkgdir/usr/bin/picasa
 
     # Desktop files
@@ -59,7 +59,7 @@ build() {
 
     # Install hook files
     for file in email filemanager urlhandler mimehandler
-    do 
+    do
         install -Dm 755 $srcdir/picasa/$picasadir/desktop/picasa-hook-$file.sh.template \
             $pkgdir/$picasadir/info/picasa-hook-$file.sh
     done
