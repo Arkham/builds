@@ -6,6 +6,8 @@ post_install() {
   echo "==> to the latest version."
   echo
   echo "==> Please don't cancel the PunkBuster updater."
+  echo "==> This should take *really really* loooooooooong."
+  echo "==> It's not crashed, it's just sloooooow. Be patient."
   echo
   sleep 3
 
