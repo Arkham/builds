@@ -1,0 +1,50 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: hybraries <macwolf@archlinux.de>
+# Contributor: Stefan Husmann <stefan-husmann@t-online.de>
+# Contributor: Navi <navitwo.at.gmail.dot.com>
+# Contributor: rabyte <rabyte.at.gmail.dot.com>
+# Contributor: Johannes Krampf <wuischke.at.amule.dot.org>
+
+pkgname=midori-git
+pkgver=20090716
+pkgrel=1
+pkgdesc="A lightweight web browser based on WebKit. GIT Development Version."
+arch=('i686' 'x86_64')
+url="http://software.twotoasts.de/?page=midori"
+license=('LGPL2')
+depends=('webkitgtk-svn')
+makedepends=('pkgconfig>=0.9' 'git' 'python' 'libxml2' 'gtk2' 'intltool' 'docutils' 'libsoup')
+provides=('midori')
+conflicts=('midori')
+install=midori.install
+source=()
+md5sums=()
+
+_gitroot="git://git.xfce.org/kalikiana/midori"
+_gitname="midori"
+
+build() {
+    cd "$srcdir"
+    msg "Connecting to the midori git repository..."
+
+    if [ -d "$srcdir/$_gitname" ] ; then
+        cd $_gitname && git pull origin
+        msg "The local files are updated."
+    else
+        git clone $_gitroot
+    fi
+
+    msg "GIT checkout done or server timeout"
+    msg "Starting make..."
+
+    cd $srcdir
+
+    rm -rf $_gitname-build
+    #cp -r "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+    git clone $_gitname $_gitname-build
+    cd $_gitname-build
+
+    ./waf configure --prefix=/usr || return 1
+    ./waf build || return 1
+    DESTDIR="$pkgdir" ./waf install || return 1
+}
