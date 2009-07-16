@@ -1,37 +1,13 @@
 post_install() {
 
-  echo
-  echo "==> Running PunkBuster updater to make sure"
-  echo "==> that your PunkBuster installation is updated"
-  echo "==> to the latest version."
-  echo
-  echo "==> Please don't cancel the PunkBuster updater."
-  echo "==> This should take *really really* loooooooooong."
-  echo "==> It's not crashed, it's just sloooooow. Be patient."
-  echo
-  sleep 3
-
-  # Run et-pbupdate script
-  et-pbupdate
-
-  echo
-  echo "==> Update complete."
-  echo
-  echo "==> If you need to manually update PunkBuster at a later date,"
-  echo "==> you can run et-pbupdate as root."
-  sleep 3
-
-  echo
-  echo "==> If you use the et-ded rc.d dedicated server script, please be aware that"
+    echo
+    echo "==> You have to run a working PunkBuster to play! Read here:"
+    echo "==> http://www.evenbalance.com/index.php?page=pbsetup.php"
+    echo
 }
 
 post_upgrade() {
 
-  # Run post_install function
-  post_install $1
+    # Run post_install function
+    post_install $1
 }
-
-op=$1
-shift
-
-$op $*
