@@ -1,0 +1,93 @@
+# Maintainer: Arkham <arkham at archlinux dot us>
+# Contributor: MacWolf <macwolf@archlinux.de>
+
+pkgname=vlc-git
+pkgver=20090716
+pkgrel=1
+pkgdesc="VideoLAN Client is a multi-platform MPEG, VCD/DVD, and DivX player.Development GIT Version."
+arch=('i686' 'x86_64')
+url="http://www.videolan.org/vlc/"
+license=('GPL')
+depends=('libmad' 'libmpeg2' 'ffmpeg' \
+         'hal' 'fluidsynth' 'lua' 'libass' \
+         'libdvbpsi' 'fribidi' 'sysfsutils' \
+         'libdvdnav' 'libnotify' 'libdvdread' \
+         'libmatroska' 'libcddb' 'libmpcdec'\
+         'faad2' 'qt' 'libmodplug' 'speex' 'sdl_image' \
+         'libxml2' 'libdca' 'libxv' 'avahi' 'taglib')
+makedepends=('a52dec' 'make' 'm4' 'pkgconfig' 'automake' 'autoconf' 'git' 'live-media>=2008.09.02')
+conflicts=('vlc' 'vlc-svn' 'vlc-nightly')
+provides=('vlc' 'vlc-svn' 'vlc-nightly')
+install=vlc.install
+source=()
+md5sums=()
+
+_gitroot=git://git.videolan.org/vlc.git
+_gitname=vlc
+
+build() {
+    cd $startdir/src
+
+    if [ -d $_gitname ]; then
+        cd $_gitname && git pull origin
+        cd ..
+    else
+        git clone $_gitroot
+    fi
+
+    rm -rf $_gitname-build
+    git clone $_gitname $_gitname-build
+
+    msg "GIT checkout done or server timeout"
+
+    cd $_gitname-build
+
+    msg "Generating necessary files"
+
+    ./bootstrap
+
+    msg "Generating done."
+
+    msg "Starting make..."
+
+    [ "${CARCH}" = "i686" ] && EXTRAFEATURES="--enable-loader --disable-live555 --with-live555-tree=/usr/lib/live-media"
+    [ "${CARCH}" = "x86_64" ] && EXTRAFEATURES="--enable-fast-install --enable-live555 --with-live555-tree=/usr/lib/live-media"
+
+    ./configure --prefix=/usr --prefix=/usr \
+        --enable-dvdread \
+        --enable-dvdnav \
+        --disable-rpath \
+        --enable-qt4 \
+        --enable-faad \
+        --enable-alsa \
+        --enable-skins2 \
+        --enable-dvb \
+        --enable-v4l \
+        --enable-theora \
+        --enable-flac \
+        --enable-snapshot \
+        --enable-hal \
+        --enable-dbus \
+        --enable-ogg \
+        --enable-dbus-control \
+        --enable-shared \
+        --enable-nls \
+        --enable-lirc \
+        --enable-shout \
+        --enable-pvr \
+        --enable-release \
+        --enable-libass \
+        --disable-zvbi \
+        --program-suffix= \
+        --with-dv-raw1394=/usr/include/libraw1394 ${EXTRAFEATURES} || return 1
+
+    CFLAGS="$CFLAGS -fPIC"
+    make || return 1
+    make DESTDIR=$startdir/pkg install || return 1
+
+    for res in 16 32 48; do
+        install -D -m644 share/vlc${res}x${res}.png \
+        $startdir/pkg/usr/share/icons/hicolor/${res}x${res}/apps/vlc.png || return 1
+    done
+    rm -rf ${startdir}/pkg/usr/lib/mozilla
+}
