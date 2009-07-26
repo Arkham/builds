@@ -4,7 +4,7 @@
 # Contributor: graigue <gregori.couzard@gmail.com>
 
 pkgname=epiphany-webkit
-pkgver=2.27.3
+pkgver=2.27.4
 pkgrel=1
 pkgdesc="A GNOME2 web browser using the experimental webkit rendering engine"
 arch=('i686' 'x86_64')
@@ -18,7 +18,7 @@ provides=(epiphany=$pkgver)
 conflicts=('epiphany')
 install=$pkgname.install
 source=(http://ftp.gnome.org/pub/GNOME/sources/epiphany/2.27/epiphany-$pkgver.tar.bz2)
-md5sums=('83d1785c8e15d77ae088a7d9eed6a705')
+md5sums=('35f37bf3150614f1d8ff3f21864737ca')
 
 build() {
     cd $srcdir/epiphany-$pkgver
@@ -34,7 +34,7 @@ build() {
         --with-engine=webkit || return 1
     make || return 1
     make GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR=$pkgdir install || return 1
-    
+
     # Merge gconf schemas in a single file
     install -d $pkgdir/usr/share/gconf/schemas
     gconf-merge-schema $pkgdir/usr/share/gconf/schemas/epiphany.schemas \
