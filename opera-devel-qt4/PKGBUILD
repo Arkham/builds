@@ -3,9 +3,9 @@
 # Contributor: Julius Bullinger <julius.bullinger@gmail.com>
 
 pkgname=opera-devel-qt4
-pkgver=10.00_4502
-_build=4502
-_realver=10.00-${_build}
+pkgver=10.10_4609
+_build=4609
+_realver=10.10-${_build}
 pkgrel=1
 pkgdesc="The Opera web browser development and testing version, shared Qt4 version"
 arch=('i686' 'x86_64')
@@ -16,14 +16,12 @@ conflicts=('opera' 'opera-devel' 'opera-static')
 provides=('opera' 'opera-devel' 'opera-static')
 source=(http://snapshot.opera.com/unix/snapshot-$_build/intel-linux/opera-$_realver.gcc4-qt4.i386.tar.bz2
         opera.desktop
-        opera.svg
-        opera-qt4-theme.patch)
+        opera.svg)
 [ "$CARCH" == "x86_64" ] && source[0]="http://snapshot.opera.com/unix/snapshot-$_build/x86_64-linux/opera-$_realver.gcc4-qt4.x86_64.tar.bz2"
-md5sums=('3dde2e9e156916efd38d23386c76da80'
+md5sums=('fce6b9e568583f99a5e0130c4db45195'
          'e68398e5b8c4cb0b59fdb661ff1877e6'
-         'bf26b6d02091786d4ed45f4874874e3a'
-         'c42f31ccbc97304981d7ea38f87f5f43')
-[ "$CARCH" == "x86_64" ] && md5sums[0]='3c93d61ca3e0817cdea69d7308d8e984'
+         'bf26b6d02091786d4ed45f4874874e3a')
+[ "$CARCH" == "x86_64" ] && md5sums[0]='a5c15547402284d449468ee011c4ea64'
 
 build() {
     # Install the data and the license
@@ -32,10 +30,10 @@ build() {
     ./install.sh DESTDIR=$pkgdir || return 1
     install -Dm 644 LICENSE $pkgdir/usr/share/licenses/$pkgname/license.txt
 
-    # Some patches: doing it here to prevent invalid checksums in install.sh
-    cd $pkgdir/usr/bin && patch -i $srcdir/opera-qt4-theme.patch || return 1
-
     # Install .desktop and icon
     install -Dm 644 $srcdir/opera.desktop $pkgdir/usr/share/applications/opera.desktop
     install -Dm 644 $srcdir/opera.svg $pkgdir/usr/share/opera/images/opera.svg
 }
+
+# Calculate x86_64 md5
+# eval $(grep "^_build" PKGBUILD) && eval $(grep "^_realver" PKGBUILD) && wget http://snapshot.opera.com/unix/snapshot-$_build/x86_64-linux/opera-$_realver.gcc4-qt4.x86_64.tar.bz2 && md5sum opera-$_realver.gcc4-qt4.x86_64.tar.bz2 && rm opera-$_realver.gcc4-qt4.x86_64.tar.bz2

@@ -6,11 +6,11 @@
 # Contributor: Johannes Krampf <wuischke.at.amule.dot.org>
 
 pkgname=midori-git
-pkgver=20090725
+pkgver=20090821
 pkgrel=1
 pkgdesc="A lightweight web browser based on WebKit. GIT Development Version."
 arch=('i686' 'x86_64')
-url="http://software.twotoasts.de/?page=midori"
+url="http://twotoasts.de/index.php?/pages/midori_summary.html"
 license=('LGPL2')
 depends=('webkitgtk-svn')
 makedepends=('pkgconfig>=0.9' 'git' 'python' 'libxml2' 'gtk2' 'intltool' 'docutils' 'libsoup')
@@ -20,7 +20,7 @@ install=midori.install
 source=()
 md5sums=()
 
-_gitroot="git://git.xfce.org/kalikiana/midori"
+_gitroot="git://git.xfce.org/apps/midori"
 _gitname="midori"
 
 build() {

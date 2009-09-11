@@ -2,16 +2,16 @@
 # Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
 
 pkgname=spring
-pkgver=0.79.1.2
+pkgver=0.80.4
 pkgrel=1
-pkgdesc='A free 3D real-time-strategy (RTS) game engine for "Total Annihilation"'
+pkgdesc='A free 3D real-time-strategy (RTS) game engine'
 arch=('i686' 'x86_64')
 url="http://springrts.com/"
 license=('GPL')
 depends=('openal' 'glew' 'boost' 'devil' 'libvorbis')
 makedepends=('make' 'cmake>=2.6' 'zip' 'tar' 'lzma-utils')
 source=(http://spring.clan-sy.com/dl/${pkgname}_${pkgver}_src.tar.lzma)
-md5sums=('fe22719f1df985051584767b19261dbc')
+md5sums=('b0119298031fd1aa4aca77086a438d00')
 
 build() {
     bsdtar -xf ${pkgname}_${pkgver}_src.tar.lzma || return 1

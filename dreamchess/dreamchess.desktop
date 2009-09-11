@@ -1,0 +1,8 @@
+Name=DreamChess
+Version=1.0
+Exec=dreamchess
+Terminal=false
+Type=Application
+Categories=GNOME;Game;BoardGame;
+StartupNotify=true
+Icon=/usr/share/dreamchess/icon.png

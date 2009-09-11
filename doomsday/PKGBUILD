@@ -3,18 +3,18 @@
 # Contributor: Dmitry Shilov <stormblast@land.ru>
 
 pkgname=doomsday
-pkgver=1.9.0_beta6.3
+pkgver=1.9.0_beta6.6
 pkgrel=1
 pkgdesc="An advanced port of the Doom game engine"
-url="http://www.doomsdayhq.com/"
+url="http://dengine.net/"
 arch=('i686' 'x86_64')
 license=('GPL')
 depends=('sdl_net' 'sdl_mixer' 'curl' 'libgl' 'libpng' 'mesa' 'openal')
 makedepends=('cmake>=2.4')
 install=$pkgname.install
-source=(http://downloads.sourceforge.net/deng/deng-1.9.0-beta6.3.tar.gz \
+source=(http://downloads.sourceforge.net/deng/deng-1.9.0-beta6.6.tar.gz
         launchers.tar.gz)
-md5sums=('7cac28f5d43f91852831b351589ab7e4'
+md5sums=('aa71afc90c64bf633ab3a182695092e5'
          '9ffc152d8031da40f8047424b46c478e')
 
 build() {
