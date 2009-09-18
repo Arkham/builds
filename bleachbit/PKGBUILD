@@ -2,7 +2,7 @@
 # Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
 
 pkgname=bleachbit
-pkgver=0.6.3
+pkgver=0.6.4
 pkgrel=1
 pkgdesc="Deletes unneeded files to free disk space and maintain privacy"
 arch=('any')
@@ -14,7 +14,7 @@ source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2
         $pkgname-admin.sh
         $pkgname-admin.png
         $pkgname-admin.desktop)
-md5sums=('305963247e84d1a55247aa9fde7d4a17'
+md5sums=('6ac5a538c70140a8fc2568f79827ea27'
          'a424bec443cc519391c837948fa98fdd'
          'ddd834baa40d481a603333638e735825'
          'fc13f064e8970af4418486469dce05d0')
