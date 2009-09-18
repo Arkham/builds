@@ -3,7 +3,7 @@
 
 pkgname=sabayon
 pkgver=2.27.91
-pkgrel=1
+pkgrel=2
 pkgdesc="System administration tool to manage GNOME desktop settings."
 arch=('i686' 'x86_64')
 url="http://www.gnome.org/projects/sabayon/"
@@ -20,7 +20,7 @@ build() {
     ./configure --prefix=/usr --sysconfdir=/etc  --localstatedir=/var/lib/sabayon \
         --mandir=/usr/share/man --with-distro=slackware
 
-    sed -i 's/Exec=/Exec=gksu/' admin-tool/sabayon.desktop
+    sed -i 's/Exec=/Exec=gksu /' admin-tool/sabayon.desktop
 
     make || return 1
     make GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR=$pkgdir install || return 1
