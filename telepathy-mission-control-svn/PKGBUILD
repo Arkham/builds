@@ -13,6 +13,8 @@ license=('LGPL2.1')
 depends=('libtelepathy' 'gtk-doc')
 makedepends=('libxslt' 'python')
 options=('!libtool')
+conflicts=('telepathy-mission-control')
+provides=('telepathy-mission-control')
 source=()
 md5sums=()
 
