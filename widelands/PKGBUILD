@@ -8,7 +8,7 @@ pkgdesc="A realtime strategy game with emphasis on economy and transport"
 arch=('i686' 'x86_64')
 url="http://widelands.org/"
 license=('GPL')
-depends=('sdl_mixer>=1.2.6' 'sdl_image' 'sdl_net' 'sdl_ttf>=2' 'sdl_gfx' 'gcc-libs')
+depends=('sdl_mixer>=1.2.6' 'sdl_image' 'sdl_net' 'sdl_ttf>=2' 'sdl_gfx' 'gcc-libs' 'ggz-client-libs' 'libggz')
 makedepends=('scons>=0.97' 'boost')
 source=(http://downloads.sourceforge.net/$pkgname/Widelands-Build$pkgver-src.tar.bz2
         $pkgname.desktop
