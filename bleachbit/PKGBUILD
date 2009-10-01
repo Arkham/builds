@@ -2,8 +2,8 @@
 # Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
 
 pkgname=bleachbit
-pkgver=0.6.4
-pkgrel=1
+pkgver=0.6.5
+pkgrel=2
 pkgdesc="Deletes unneeded files to free disk space and maintain privacy"
 arch=('any')
 url="http://bleachbit.sourceforge.net/"
@@ -11,10 +11,12 @@ license=('GPL3')
 depends=('pygtk>=2' 'gksu')
 install=$pkgname.install
 source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2
+        http://downloads.sourceforge.net/$pkgname/$pkgname-bonus-$pkgver.tar.bz2
         $pkgname-admin.sh
         $pkgname-admin.png
         $pkgname-admin.desktop)
-md5sums=('6ac5a538c70140a8fc2568f79827ea27'
+md5sums=('d2d2ccd16145c3b7d5f999255f0d11f9'
+         '07571f2e28cfab9efcf51bbf0e93500b'
          'a424bec443cc519391c837948fa98fdd'
          'ddd834baa40d481a603333638e735825'
          'fc13f064e8970af4418486469dce05d0')
@@ -24,6 +26,9 @@ build() {
 
     # Compile
     make prefix=/usr DESTDIR=$pkgdir install || return 1
+
+    # Bonus cleaners
+    install -m 644 $srcdir/$pkgname-bonus-$pkgver/cleaners/*.xml $pkgdir/usr/share/$pkgname/cleaners/
 
     # Install bin, icon and desktop file
     install -Dm 755 $srcdir/$pkgname-admin.sh $pkgdir/usr/bin/$pkgname-admin
