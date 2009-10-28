@@ -1,0 +1,22 @@
+# Maintainer: Arkham <arkham at archlinux dot us> 
+# Contributor: Artyom Smirnov <smirnoffjr@gmail.com>
+
+pkgname=flush
+pkgver=0.8
+pkgrel=1
+pkgdesc="GTK+-based BitTorrent client"
+arch=('i686' 'x86_64')
+url="http://sourceforge.net/projects/flush/"
+license=('GPL')
+depends=('libconfig' 'libtorrent-rasterbar' 'libglademm' 'dbus-core')
+install=${pkgname}.install
+source=(http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2)
+md5sums=('3680a956c0adf6d119e7b3d4f8216b07')
+
+build() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    export LDFLAGS="${LDFLAGS//-Wl,--as-needed}" 
+    ./configure --prefix=/usr
+    make || return 1
+    make DESTDIR="${pkgdir}/" install
+}
