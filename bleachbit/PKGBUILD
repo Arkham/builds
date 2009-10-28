@@ -2,7 +2,7 @@
 # Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
 
 pkgname=bleachbit
-pkgver=0.6.5
+pkgver=0.7.0
 pkgrel=2
 pkgdesc="Deletes unneeded files to free disk space and maintain privacy"
 arch=('any')
@@ -11,12 +11,12 @@ license=('GPL3')
 depends=('pygtk>=2' 'gksu')
 install=$pkgname.install
 source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2
-        http://downloads.sourceforge.net/$pkgname/$pkgname-bonus-$pkgver.tar.bz2
+        http://downloads.sourceforge.net/$pkgname/$pkgname-bonus-$pkgver.tar.gz 
         $pkgname-admin.sh
         $pkgname-admin.png
         $pkgname-admin.desktop)
-md5sums=('d2d2ccd16145c3b7d5f999255f0d11f9'
-         '07571f2e28cfab9efcf51bbf0e93500b'
+md5sums=('76181f2d89485d5ddadaec64ebff0ecb'
+         'b4101e839faadf493af9c7a591b1e838'
          'a424bec443cc519391c837948fa98fdd'
          'ddd834baa40d481a603333638e735825'
          'fc13f064e8970af4418486469dce05d0')
