@@ -2,14 +2,14 @@
 # Contributor: Artyom Smirnov <smirnoffjr@gmail.com>
 
 pkgname=gnome-colors-icon-theme
-pkgver=5.5
+pkgver=5.5.1
 pkgrel=1
 pkgdesc="GNOME Colors icon theme"
 arch=('any')
 url="http://gnome-colors.googlecode.com/"
 license=('GPL')
 source=(http://gnome-colors.googlecode.com/files/gnome-colors-${pkgver}.tar.gz)
-md5sums=('905bed4d6d9c1f6bb897586d36b9f118')
+md5sums=('8ec81b556bac351817bd56a1701dbbfb')
 
 build() {
     cd "${srcdir}"
