@@ -3,8 +3,8 @@
 # Contributor: Julius Bullinger <julius.bullinger@gmail.com>
 
 pkgname=opera-devel-qt4
-pkgver=10.10_4665
-_build=4665
+pkgver=10.10_4685
+_build=4685
 _realver=10.10-${_build}
 pkgrel=1
 pkgdesc="The Opera web browser development and testing version, shared Qt4 version"
@@ -18,10 +18,10 @@ source=(http://snapshot.opera.com/unix/snapshot-$_build/intel-linux/opera-$_real
         opera.desktop
         opera.svg)
 [ "$CARCH" == "x86_64" ] && source[0]="http://snapshot.opera.com/unix/snapshot-$_build/x86_64-linux/opera-$_realver.gcc4-qt4.x86_64.tar.bz2"
-md5sums=('ab5fef77c25ac98ba9eaba59383da363'
+md5sums=('9a53245858eb4be6ada8fd83da3f107e'
          'e68398e5b8c4cb0b59fdb661ff1877e6'
          'bf26b6d02091786d4ed45f4874874e3a')
-[ "$CARCH" == "x86_64" ] && md5sums[0]='035839c374eaacb3d66bae4bf817f519'
+[ "$CARCH" == "x86_64" ] && md5sums[0]='c0b2b859af517ffe3b1e8ff4ba0d9ec3'
 
 build() {
     # Install the data and the license
