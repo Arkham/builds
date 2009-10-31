@@ -2,7 +2,7 @@
 # Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
 
 pkgname=freerapid
-pkgver=0.83
+pkgver=0.83u1
 pkgrel=1
 pkgdesc="A Java-based download manager for Rapidshare and other file sharing archives"
 arch=('any')
@@ -10,10 +10,10 @@ url="http://wordrider.net/freerapid/"
 license=('GPL')
 depends=('jre')
 provides=('frd')
-source=(http://freerapid-downloader.sweb.cz/FreeRapiD-$pkgver.zip
+source=(http://freerapid-downloader.sweb.cz/FreeRapid-$pkgver.zip
         $pkgname.sh
         $pkgname.desktop)
-md5sums=('f66f7fbba35046284485475e0201b118'
+md5sums=('46a8e3215ca4ea3c69ccfbe7c065f778'
          'f3af9e8ae81bf4c114b2475026fc0a0c'
          '815a8b560580698d39361487d9710edb')
 
