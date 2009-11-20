@@ -4,7 +4,7 @@
 pkgname=starfighter
 pkgver=1.1
 pkgrel=5
-pkgdesc="Project: Starfighter is a 2D mission-based shoot 'em up game."
+pkgdesc="A 2D mission-based shoot 'em up game."
 arch=('i686' 'x86_64')
 url="http://www.parallelrealities.co.uk/projects/starfighter.php"
 license=('GPL')
