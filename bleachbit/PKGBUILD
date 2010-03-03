@@ -2,7 +2,7 @@
 # Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
 
 pkgname=bleachbit
-pkgver=0.7.1
+pkgver=0.7.3
 pkgrel=1
 pkgdesc="Deletes unneeded files to free disk space and maintain privacy"
 arch=('any')
@@ -10,16 +10,15 @@ url="http://bleachbit.sourceforge.net/"
 license=('GPL3')
 depends=('pygtk>=2' 'gksu')
 install=$pkgname.install
+# http://downloads.sourceforge.net/$pkgname/$pkgname-bonus-$pkgver.tar.gz 
 source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2
-        http://downloads.sourceforge.net/$pkgname/$pkgname-bonus-$pkgver.tar.gz 
         $pkgname-admin.sh
         $pkgname-admin.png
         $pkgname-admin.desktop)
-md5sums=('c0f7135af06c224875ad67f07f46325e'
-         'd8636e2702c77d2b6658494701995d4f'
+md5sums=('94c427aa3b957268c3b6bb886a2fc4e7'
          'a424bec443cc519391c837948fa98fdd'
          'ddd834baa40d481a603333638e735825'
-         'fc13f064e8970af4418486469dce05d0')        
+         'fc13f064e8970af4418486469dce05d0')
 
 build() {
     cd $srcdir/$pkgname-$pkgver
@@ -28,7 +27,7 @@ build() {
     make prefix=/usr DESTDIR=$pkgdir install || return 1
 
     # Bonus cleaners
-    install -m 644 $srcdir/$pkgname-bonus-$pkgver/cleaners/*.xml $pkgdir/usr/share/$pkgname/cleaners/
+    # install -m 644 $srcdir/$pkgname-bonus-$pkgver/cleaners/*.xml $pkgdir/usr/share/$pkgname/cleaners/
 
     # Install bin, icon and desktop file
     install -Dm 755 $srcdir/$pkgname-admin.sh $pkgdir/usr/bin/$pkgname-admin

@@ -2,7 +2,7 @@
 # Contributor: Arkham <arkham at archlinux dot us>
 
 pkgname=nikto
-pkgver=2.1.0
+pkgver=2.1.1
 pkgrel=1
 pkgdesc='A web server scanner which performs comprehensive tests against web servers for multiple items'
 url='http://www.cirt.net/code/nikto.shtml'
@@ -10,9 +10,9 @@ license=('GPL')
 arch=('any')
 depends=('perl' 'openssl' 'perl-net-ssleay')
 install=$pkgname.install
-source=(http://www.cirt.net/nikto/ARCHIVE/$pkgname-$pkgver.tar.gz
+source=(http://www.cirt.net/nikto/$pkgname-$pkgver.tar.gz
         nikto.sh)
-md5sums=('364200f2e181398fa0e8995d550f9a9c'
+md5sums=('a9404c3f464b08f3f48788d5f39e0ca7'
          'eb7b704c8bdae28af9a0353764d0b552')
 
 build() {

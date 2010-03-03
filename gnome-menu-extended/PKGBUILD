@@ -2,7 +2,7 @@
 # Contributor: Arkham <arkham at archlinux dot us>
 
 pkgname=gnome-menu-extended
-pkgver=1.2
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="Gnome menu with KDE and OOo submenus for Gnome 2.10 or later."
 arch=('any')
@@ -11,7 +11,7 @@ license=('GPL' 'LGPL')
 depends=('gnome-menus')
 install=('gnome-menu-extended.install')
 source=(http://gtk-apps.org/CONTENT/content-files/73513-${pkgname}-${pkgver}.tar.gz)
-md5sums=('7c1f7c8934cedde8d310faa5e3c6b21d')
+md5sums=('5a7252ea0deda7aad45c2d7a23b06965')
 
 build() {
     cd $srcdir/$pkgname-$pkgver

@@ -4,13 +4,14 @@
 
 pkgname=enemy-territory
 pkgver=2.60b
-pkgrel=9
+pkgrel=11
 pkgdesc="Wolfenstein: Enemy Territory is a completely free, standalone, team-based, multiplayer FPS."
 arch=('i686' 'x86_64')
 url="http://www.planetwolfenstein.com/"
 license=('custom')
-depends=('mesa' 'libxext' 'et-sdl-sound')
-[[ "$CARCH" == "x86_64" ]] && depends=('lib32-mesa' 'lib32-libxext' 'et-sdl-sound')
+depends=('mesa' 'libxext')
+optdepends=('et-sdl-sound')
+[[ "$CARCH" == "x86_64" ]] && depends=('lib32-mesa' 'lib32-libxext') && optdepends=('et-sdl-sound')
 makedepends=('unzip')
 backup=(opt/enemy-territory/etmain/server.cfg
         opt/enemy-territory/etmain/punkbuster.cfg)

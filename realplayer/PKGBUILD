@@ -3,7 +3,7 @@
 # Contributor: Mario Vazquez <mario_vazq@hotmail.com>
 
 pkgname=realplayer
-pkgver=11.0.1.1056
+pkgver=11.0.2.1744
 pkgrel=1
 pkgdesc="Real Media Player produced by RealNetworks"
 arch=('i686')
@@ -12,7 +12,7 @@ license=('custom')
 depends=('gtk2' 'libxv' 'alsa-lib')
 makedepends=('rpmextract')
 source=(http://www.real.com/realcom/R?href=http://forms.real.com/real/player/download.html?f=unix/RealPlayer11GOLD.rpm)
-md5sums=('da7265d48d53c469713fe53592a8910a')
+md5sums=('b6d870cbbc849b2be6df55218bbcc821')
 
 build() {
     cd $srcdir

@@ -17,7 +17,7 @@ build() {
 
   sed '1i#include <cstdio>' -i src/model/ac3d{material,object,surface}.cpp
 
-  ./configure --prefix=/usr --sysconfdir=/etc
+  ./configure --prefix=/usr --sysconfdir=/etc --enable-debug
 
   make || return 1
   make DESTDIR=$pkgdir install || return 1

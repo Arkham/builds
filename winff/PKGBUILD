@@ -3,7 +3,7 @@
 # Contributor: Tri Nguyen <tri170391@gmail.com>
 
 pkgname=winff
-pkgver=1.1.1
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="GUI for ffmpeg"
 url="http://www.winff.org"
@@ -12,12 +12,12 @@ arch=('i686' 'x86_64')
 depends=('ffmpeg' 'gtk2')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=amd64
-source=(http://ppa.launchpad.net/paul-climbing/ppa/ubuntu/pool/main/w/$pkgname/${pkgname}_$pkgver-1~ppa2j_${_arch}.deb)
-md5sums=('57e576c82131697323350e9c01c5bbf5')
-[ "$CARCH" = "x86_64" ] && md5sums=('546b6f90dc9719a9f4698d0525ee1aa8')
+source=(http://ppa.launchpad.net/paul-climbing/ppa/ubuntu/pool/main/w/$pkgname/${pkgname}_$pkgver-1~ppa1j_${_arch}.deb)
+md5sums=('eb1cdd4befb410d4042b791667f236b5')
+[ "$CARCH" = "x86_64" ] && md5sums=('a01ce8e0a3a45cceb75d462ed5132ad3')
 
 build() {
-    ar vx  ${pkgname}_$pkgver-1~ppa2j_${_arch}.deb
+    ar vx  ${pkgname}_$pkgver-1~ppa1j_${_arch}.deb
     tar xvzf data.tar.gz
     install -Dm 755 $srcdir/usr/bin/winff $pkgdir/usr/bin/winff
     install -Dm 755 $srcdir/usr/share/winff/presets.xml $pkgdir/usr/share/winff/presets.xml

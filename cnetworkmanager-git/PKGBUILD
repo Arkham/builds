@@ -2,7 +2,7 @@
 # Contributor: roverorna <roverorna at gmail dot com>
 
 pkgname=cnetworkmanager-git
-pkgver=20090621
+pkgver=20100223
 pkgrel=1
 pkgdesc="Command Line Interface for NetworkManager"
 arch=('i686' 'x86_64')
@@ -30,8 +30,6 @@ build() {
     msg "GIT checkout done or server timeout"
     msg "Starting make..."
 
-    install -Dm 755 $srcdir/$_gitname/cnetworkmanager $pkgdir/usr/bin/cnetworkmanager
-    if [ -f $srcdir/$_gitname/pbkdf2.py ]; then
-        install -Dm 644 $srcdir/$_gitname/pbkdf2.py $pkgdir/usr/lib/python2.6/site-packages/pbkdf2.py
-    fi
+    cd $srcdir/cnetworkmanager
+    python setup.py build install --root="$pkgdir"
 }
